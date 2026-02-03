@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react'
+import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react'
+import emailjs from '@emailjs/browser'
 
 const Contact = () => {
   const ref = useRef(null)
@@ -13,6 +14,7 @@ const Contact = () => {
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState('')
 
   const validateForm = () => {
     const newErrors = {}
@@ -36,13 +38,33 @@ const Contact = () => {
     if (!validateForm()) return
 
     setIsSubmitting(true)
-    // Simulate form submission
-    setTimeout(() => {
+    setSubmitError('')
+
+    // EmailJS configuration
+    // Replace these with your EmailJS credentials
+    const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID'
+    const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID'
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY'
+
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      message: formData.message,
+      to_email: 'alikalkidan0088@gmail.com', // Your email address
+    }
+
+    try {
+      await emailjs.send(serviceID, templateID, templateParams, publicKey)
       setIsSubmitting(false)
       setIsSubmitted(true)
       setFormData({ name: '', email: '', message: '' })
-      setTimeout(() => setIsSubmitted(false), 3000)
-    }, 1000)
+      setTimeout(() => setIsSubmitted(false), 5000)
+    } catch (error) {
+      console.error('EmailJS Error:', error)
+      setIsSubmitting(false)
+      setSubmitError('Failed to send message. Please try again or contact me directly via email.')
+      setTimeout(() => setSubmitError(''), 5000)
+    }
   }
 
   const handleChange = (e) => {
@@ -211,6 +233,17 @@ const Contact = () => {
               )}
             </div>
 
+            {submitError && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-2 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-sm"
+              >
+                <AlertCircle size={18} />
+                <span>{submitError}</span>
+              </motion.div>
+            )}
+
             <motion.button
               type="submit"
               disabled={isSubmitting || isSubmitted}
@@ -240,4 +273,5 @@ const Contact = () => {
 }
 
 export default Contact
+
 

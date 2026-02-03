@@ -41,10 +41,20 @@ const Contact = () => {
     setSubmitError('')
 
     // EmailJS configuration
-    // Replace these with your EmailJS credentials
-    const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID'
-    const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID'
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY'
+    const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID
+    const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+    // Check if EmailJS is configured
+    if (!serviceID || !templateID || !publicKey || 
+        serviceID === 'YOUR_SERVICE_ID' || 
+        templateID === 'YOUR_TEMPLATE_ID' || 
+        publicKey === 'YOUR_PUBLIC_KEY') {
+      setIsSubmitting(false)
+      setSubmitError('Email service is not configured. Please contact me directly at alikalkidan0088@gmail.com')
+      setTimeout(() => setSubmitError(''), 8000)
+      return
+    }
 
     const templateParams = {
       from_name: formData.name,
@@ -54,7 +64,8 @@ const Contact = () => {
     }
 
     try {
-      await emailjs.send(serviceID, templateID, templateParams, publicKey)
+      const response = await emailjs.send(serviceID, templateID, templateParams)
+      console.log('Email sent successfully:', response)
       setIsSubmitting(false)
       setIsSubmitted(true)
       setFormData({ name: '', email: '', message: '' })
@@ -62,8 +73,19 @@ const Contact = () => {
     } catch (error) {
       console.error('EmailJS Error:', error)
       setIsSubmitting(false)
-      setSubmitError('Failed to send message. Please try again or contact me directly via email.')
-      setTimeout(() => setSubmitError(''), 5000)
+      
+      // Provide more specific error messages
+      let errorMessage = 'Failed to send message. '
+      if (error.text) {
+        errorMessage += error.text
+      } else if (error.status === 0) {
+        errorMessage += 'Network error. Please check your internet connection or contact me directly at alikalkidan0088@gmail.com'
+      } else {
+        errorMessage += 'Please try again or contact me directly at alikalkidan0088@gmail.com'
+      }
+      
+      setSubmitError(errorMessage)
+      setTimeout(() => setSubmitError(''), 8000)
     }
   }
 

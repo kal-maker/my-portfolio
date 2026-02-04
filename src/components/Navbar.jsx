@@ -42,9 +42,9 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="text-2xl font-bold bg-gradient-to-r from-accent to-cyan-400 bg-clip-text text-transparent"
+            className="text-2xl font-bold bg-gradient-to-r from-accent to-cyan-400 bg-clip-text text-transparent font-mono"
           >
-            KA
+            &lt;KA/&gt;
           </motion.div>
 
           {/* Desktop Menu */}

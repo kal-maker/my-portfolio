@@ -70,7 +70,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.7 }}
             className="text-xl md:text-2xl lg:text-3xl text-slate-400 mb-8"
           >
-            <span className="text-slate-300">Junior Computer Science Graduate</span>
+            <span className="text-slate-300"> Computer Science Graduate</span>
             <br />
             <span className="text-accent">Building Scalable Web Applications & AI Systems</span>
           </motion.div>

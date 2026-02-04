@@ -17,6 +17,15 @@ const Projects = () => {
       icon: Sparkles,
     },
     {
+      title: 'Brain Tumor Detection using CNN',
+      description:
+        'A deep learning project for automatic brain tumor detection from MRI scans using convolutional neural networks (CNNs). Trained with categorical cross-entropy loss to maximize classification accuracy, with tracked accuracy and loss curves across epochs for performance monitoring.',
+      tools: ['Python', 'TensorFlow/Keras', 'CNN', 'Jupyter Notebook', 'NumPy', 'Matplotlib'],
+      github: 'https://github.com/kal-maker/tumor-detection',
+      type: 'Deep Learning',
+      icon: Database,
+    },
+    {
       title: 'Agriculture Information Android Application',
       description:
         'An Android application that provides practical agricultural information for farmers and agriculture enthusiasts. Includes a crop guide module detailing crop types, growing seasons, and cultivation duration, plus a pest control feature for identifying and managing common agricultural pests.',

@@ -98,10 +98,6 @@ const About = () => {
               <span className="font-semibold mr-2">Education:</span>
               <span className="text-slate-400">BSc in Computer Science (2022-2026)</span>
             </div>
-            <div className="flex items-center text-slate-300">
-              <span className="font-semibold mr-2">Experience:</span>
-              <span className="text-slate-400">Frontend Developer Intern at INSA</span>
-            </div>
           </div>
         </motion.div>
 
@@ -137,47 +133,6 @@ const About = () => {
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Experience Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-        className="glass p-8 rounded-xl"
-      >
-        <h3 className="text-2xl font-semibold text-slate-200 mb-6">Work Experience</h3>
-        <div className="space-y-6">
-          <div>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-              <h4 className="text-xl font-semibold text-accent">
-                Frontend Developer Intern
-              </h4>
-              <span className="text-slate-400 text-sm">June - August</span>
-            </div>
-            <p className="text-slate-300 font-medium mb-2">
-              Information Network Security Administration (INSA) – Addis Ababa, Ethiopia
-            </p>
-            <ul className="list-disc list-inside space-y-2 text-slate-400 ml-4">
-              <li>
-                Developed and maintained user interfaces for the Inventory Information Management
-                System, a core module of INSA's ERP platform
-              </li>
-              <li>
-                Built responsive and reusable UI components using React.js and Material UI,
-                following a component-based architecture
-              </li>
-              <li>
-                Integrated frontend components with backend RESTful APIs, handling data fetching,
-                form validation, and state management
-              </li>
-              <li>
-                Collaborated with backend developers to ensure seamless data flow, usability, and
-                consistency across the ERP system
-              </li>
-            </ul>
-          </div>
-        </div>
-      </motion.div>
     </section>
   )
 }

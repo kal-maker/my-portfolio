@@ -64,7 +64,7 @@ const Contact = () => {
     }
 
     try {
-      const response = await emailjs.send(serviceID, templateID, templateParams)
+      const response = await emailjs.send(serviceID, templateID, templateParams, publicKey)
       console.log('Email sent successfully:', response)
       setIsSubmitting(false)
       setIsSubmitted(true)
